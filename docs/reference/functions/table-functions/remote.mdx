@@ -16,12 +16,12 @@ Both functions can be used in `SELECT` and `INSERT` queries when the target is a
 ## Syntax {#syntax}
 
 ```sql
-remote(addresses_expr, [db, table, user [, password], sharding_key])
-remote(addresses_expr, [db.table, user [, password], sharding_key])
-remote(named_collection[, option=value [,..]])
-remoteSecure(addresses_expr, [db, table, user [, password], sharding_key])
-remoteSecure(addresses_expr, [db.table, user [, password], sharding_key])
-remoteSecure(named_collection[, option=value [,..]])
+remote(addresses_expr, [db, table, user [, password], sharding_key][, SETTINGS name = value, ...])
+remote(addresses_expr, [db.table, user [, password], sharding_key][, SETTINGS name = value, ...])
+remote(named_collection[, option=value [,..]][, SETTINGS name = value, ...])
+remoteSecure(addresses_expr, [db, table, user [, password], sharding_key][, SETTINGS name = value, ...])
+remoteSecure(addresses_expr, [db.table, user [, password], sharding_key][, SETTINGS name = value, ...])
+remoteSecure(named_collection[, option=value [,..]][, SETTINGS name = value, ...])
 ```
 
 ## Parameters {#parameters}
@@ -34,6 +34,7 @@ remoteSecure(named_collection[, option=value [,..]])
 | `user`         | User name. If not specified, `default` is used. Type: [String](/reference/data-types/string).                                                                                                                                                                                                                                                         |
 | `password`     | User password. If not specified, an empty password is used. Type: [String](/reference/data-types/string).                                                                                                                                                                                                                                             |
 | `sharding_key` | Sharding key to support distributing data across nodes. For example: `insert into remote('127.0.0.1:9000,127.0.0.2', db, table, 'default', rand())`. Type: [UInt32](/reference/data-types/int-uint).                                                                                                                                                 |
+| `SETTINGS name = value, ...` | Settings of the Distributed table created by the function, for example `skip_unavailable_shards`. Optional. A setting specified in the query has priority over it. |
 
 Arguments also can be passed using [named collections](/concepts/features/configuration/server-config/named-collections).
 

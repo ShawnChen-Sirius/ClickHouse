@@ -6839,10 +6839,22 @@ SELECT
 
 ## toTime {#toTime}
 
-Introduced in: v1.1.0
+Introduced in: v25.5.0
 
 Converts an input value to type [Time](/reference/data-types/time).
 Supports conversion from String, FixedString, DateTime, DateTime64, or numeric types representing seconds since midnight.
+
+<Info>
+**Legacy `toTime`**
+
+Before v25.5, `toTime` was a different function, which converted a date with time to a fixed date (`1970-01-02`) while preserving the
+time component. That function is still available under the name [`toTimeWithFixedDate`](/reference/functions/regular-functions/date-time-functions#toTimeWithFixedDate).
+
+Setting [`use_legacy_to_time`](/reference/settings/session-settings#use_legacy_to_time) to `1` also keeps the name `toTime` bound to the legacy
+function, i.e. calls to `toTime` resolve to `toTimeWithFixedDate` instead of the conversion function described here.
+While the setting is enabled, use `CAST(x AS Time)` or `x::Time` to convert to type `Time`.
+The setting defaults to `0` since v26.7, but defaulted to `1` from v25.6 to v26.6, which is why the examples below set it explicitly.
+</Info>
     
 
 **Syntax**
@@ -7033,7 +7045,7 @@ SELECT toTime64OrZero('12:30:45.123'), toTime64OrZero('invalid')
 
 ## toTimeOrNull {#toTimeOrNull}
 
-Introduced in: v1.1.0
+Introduced in: v25.5.0
 
 Converts an input value to a value of type Time but returns `NULL` in case of an error.
 Like [`toTime`](#toTime) but returns `NULL` instead of throwing an exception on conversion errors.
@@ -7073,7 +7085,7 @@ SELECT toTimeOrNull('12:30:45'), toTimeOrNull('invalid')
 
 ## toTimeOrZero {#toTimeOrZero}
 
-Introduced in: v1.1.0
+Introduced in: v25.5.0
 
 Converts an input value to a value of type Time but returns `00:00:00` in case of an error.
 Like toTime but returns `00:00:00` instead of throwing an exception on conversion errors.
